@@ -1,0 +1,403 @@
+﻿<Window x:Class="cookold.ProfileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:cookold"
+        mc:Ignorable="d"
+        Title="Cook.Old - Профиль" 
+        WindowState="Maximized"
+        WindowStartupLocation="CenterOwner">
+
+    <Window.Resources>
+        <Style x:Key="HeaderStyle" TargetType="Border">
+            <Setter Property="BorderThickness" Value="0,0,0,2"/>
+            <Setter Property="BorderBrush" Value="DarkOliveGreen"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Height" Value="70"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+        </Style>
+
+        <Style x:Key="SearchTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="35,5,35,5"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="#F5F5F5"/>
+
+        </Style>
+
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#555"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="5">
+                            <StackPanel>
+                                <ContentPresenter x:Name="IconContent" 
+                                                  HorizontalAlignment="Center" 
+                                                  VerticalAlignment="Center"
+                                                  Margin="0,5,0,5"/>
+                                <TextBlock x:Name="ButtonText" 
+                                           Text="{TemplateBinding Content}" 
+                                           HorizontalAlignment="Center"
+                                           FontSize="11"/>
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E8E8E8"/>
+                    <Setter Property="Foreground" Value="DarkOliveGreen"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#D0D0D0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="BottomNavStyle" TargetType="Border">
+            <Setter Property="BorderThickness" Value="0,2,0,0"/>
+            <Setter Property="BorderBrush" Value="DarkOliveGreen"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Height" Value="65"/>
+        </Style>
+
+        <Style x:Key="LogoutButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#D32F2F"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#D32F2F"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                                  VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFEBEE"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="InfoCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.05"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SettingsCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="Padding" Value="25"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.05"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SaveButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Background" Value="DarkOliveGreen"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="OliveDrab"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="DarkGreen"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SettingsTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+
+            <Setter Property="Background" Value="#FAFAFA"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+        </Style>
+
+        <Style x:Key="SettingsPasswordBoxStyle" TargetType="PasswordBox">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="#FAFAFA"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+        </Style>
+
+        <Style x:Key="SettingsLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#333"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+        </Style>
+
+        <Style x:Key="SectionTitleStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="DarkOliveGreen"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="Beige">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Style="{StaticResource HeaderStyle}">
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock Text="Cook.Old - Кулинарные рецепты" 
+                               FontSize="28" 
+                               FontWeight="Bold"
+                               Margin="20,0,0,0"
+                               VerticalAlignment="Center"
+                               Foreground="DarkOliveGreen"
+                               MouseLeftButtonDown="HomeButton_Click"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center">
+                    <Border CornerRadius="20" Background="#F5F5F5" BorderBrush="LightGray" BorderThickness="1">
+                        <Grid>
+                            <TextBlock Text="🔍" 
+                                       FontSize="16" 
+                                       VerticalAlignment="Center" 
+                                       Margin="10,0,0,0"
+                                       Opacity="0.5"/>
+                            <TextBox x:Name="SearchTextBox" 
+                                     Style="{StaticResource SearchTextBoxStyle}"
+                                     ToolTip="Поиск рецептов..."
+                                     BorderThickness="0"
+                                     Background="Transparent"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <Grid Margin="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2.5*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="0,0,30,0">
+
+                    <Border Style="{StaticResource InfoCardStyle}">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock x:Name="UserName" 
+                                       Text="Пользователь Пользователевич" 
+                                       FontSize="24" 
+                                       FontWeight="Bold" 
+                                       Foreground="DarkOliveGreen"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,0,0,5"/>
+                            <TextBlock Text="Пользователь" 
+                                       FontSize="14" 
+                                       Foreground="Gray"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource InfoCardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Статистика" 
+                                       FontSize="18" 
+                                       FontWeight="Bold" 
+                                       Foreground="DarkOliveGreen"
+                                       Margin="0,0,0,15"/>
+                            <Grid Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="📝" FontSize="20" Margin="0,0,10,0"/>
+                                <TextBlock Grid.Column="1" Text="Создано рецептов: 0" FontSize="14" Foreground="#555"/>
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="❤️" FontSize="20" Margin="0,0,10,0"/>
+                                <TextBlock Grid.Column="1" Text="Получено лайков: 0" FontSize="14" Foreground="#555"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Button x:Name="CreateListButton" 
+                            Style="{StaticResource SaveButtonStyle}"
+                            Content="Созданные рецепты"
+                            Click="CreateListButton_Click"
+                            Margin="0, 0, 0, 20"/>
+                    
+                    <Button x:Name="LogoutButton" 
+                            Style="{StaticResource LogoutButtonStyle}"
+                            Content="Выйти из профиля"
+                            Click="LogoutButton_Click"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Настройки профиля" 
+                               Style="{StaticResource SectionTitleStyle}"/>
+
+                    <Border Style="{StaticResource SettingsCardStyle}">
+                        <StackPanel>
+
+                            <TextBlock Text="Имя пользователя" Style="{StaticResource SettingsLabelStyle}"/>
+                            <TextBox x:Name="NameTextBox" 
+                                     Style="{StaticResource SettingsTextBoxStyle}"
+                                     Text="Пользователь Пользователевич"
+                                     Margin="0,0,0,20"/>
+
+                            <TextBlock Text="Электронная почта" Style="{StaticResource SettingsLabelStyle}"/>
+                            <TextBox x:Name="EmailTextBox" 
+                                     Style="{StaticResource SettingsTextBoxStyle}"
+                                     Text="user@cookold.com"
+                                     Margin="0,0,0,20"/>
+
+                            <TextBlock Text="Номер телефона" Style="{StaticResource SettingsLabelStyle}"/>
+                            <TextBox x:Name="PhoneTextBox" 
+                                     Style="{StaticResource SettingsTextBoxStyle}"
+                                     Text="+7 (999) 123-45-67"
+                                     Margin="0,0,0,20"/>
+
+                            <TextBlock Text="Новый пароль" Style="{StaticResource SettingsLabelStyle}"/>
+                            <PasswordBox x:Name="PasswordBox" 
+                                         Style="{StaticResource SettingsPasswordBoxStyle}"
+                                         Margin="0,0,0,10"/>
+
+                            <TextBlock Text="Подтверждение пароля" Style="{StaticResource SettingsLabelStyle}"/>
+                            <PasswordBox x:Name="ConfirmPasswordBox" 
+                                         Style="{StaticResource SettingsPasswordBoxStyle}"
+                                         Margin="0,0,0,20"/>
+                            
+                            <Button x:Name="SaveSettingsButton" 
+                                    Style="{StaticResource SaveButtonStyle}"
+                                    Content="Сохранить изменения"
+                                    Click="SaveSettingsButton_Click"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+
+        <Border Grid.Row="2" Style="{StaticResource BottomNavStyle}">
+            <Grid>
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center">
+
+                    <Button x:Name="HomeButton" 
+                            Style="{StaticResource NavButtonStyle}" 
+                            Click="HomeButton_Click">
+                        <Button.Content>
+                            <StackPanel>
+                                <TextBlock Text="🏠" FontSize="24"/>
+                                <TextBlock Text="Главная"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+
+                    <Button x:Name="FavoritesButton" 
+                            Style="{StaticResource NavButtonStyle}" 
+                            Click="FavoritesButton_Click"
+                            Margin="20,0,20,0">
+                        <Button.Content>
+                            <StackPanel>
+                                <TextBlock Text="❤️" FontSize="24"/>
+                                <TextBlock Text="Избранное"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+
+                    <Button x:Name="CreateRecipeButton" 
+                            Style="{StaticResource NavButtonStyle}" 
+                            Click="CreateRecipeButton_Click">
+                        <Button.Content>
+                            <StackPanel>
+                                <TextBlock Text="➕" FontSize="24"/>
+                                <TextBlock Text="Создать"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+
+                    <Button x:Name="ProfileButton" 
+                            Style="{StaticResource NavButtonStyle}" 
+                            Click="ProfileButton_Click"
+                            Margin="20,0,20,0">
+                        <Button.Content>
+                            <StackPanel>
+                                <TextBlock Text="👤" FontSize="24"/>
+                                <TextBlock Text="Профиль"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
