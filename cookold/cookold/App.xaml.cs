@@ -11,6 +11,7 @@ namespace cookold
     /// <summary>
     /// Логика взаимодействия для App.xaml
     /// </summary>
+    /// comment
     public partial class App : Application
     {
     }
